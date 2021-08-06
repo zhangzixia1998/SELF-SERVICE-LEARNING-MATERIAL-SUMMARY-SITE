@@ -1,0 +1,48 @@
+
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    About Rango
+{% endblock %}
+
+{% block body_block %}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="jumbotron">
+            <div style="margin-left: 15px;">
+                <h1>We are Night's Watch!</h1>
+                <p>Guoxiang Fan     2583405F</p>
+                <p>Yunpeng Wang     2522539W</p>
+                <p>Zixia Zhang      2529163Z</p>
+                <!-- <div class="col-xs-6 col-md-3">
+                    <img style="width: 100%;" src="{% static 'images/NightsWatch.jpg' %}" alt="NightsWatch"/>
+                </div> -->
+            </div>
+            <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p> -->
+          </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+       
+{% endblock %}
+<!-- <!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Rango</title>
+    </head>
+    <body>
+        <h1>Rango says...</h1>
+        <div>
+            here is the about page. <br />
+           This tutorial has been put together by Yunpeng Wang<br />
+        </div>
+        <div>
+            <a href="/rango/">Index</a><br />
+            <img src="{% static 'images/rango.jpg' %}" alt="Picture of Rango" /> 
+            <img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of a Cat" />
+        </div>
+    </body>
+</html> -->

@@ -1,0 +1,76 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+{% if category %}
+{{ category.name }}
+{% else %}
+Unknown Category
+{% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        {% if category %}
+        <h1>{{ category.name }}</h1>
+        {% if pages %}
+        <ul class="list-group">
+            {% for page in pages %}
+            <li class="list-group-item"><h4><a href="{{page.url}}">{{ page.title }}</a></h4></li>
+            {% if user.is_authenticated %}
+            <button class="likes btn btn-info" data-pageid={{page.id}} type="button">Like</button>
+            <strong id="likes{{page.id}}">{{ page.likes }}</strong>
+            <button class="dislikes btn btn-danger" data-pageid={{page.id}} type="button">Disike</button>
+            <strong id="dislikes{{page.id}}">{{ page.dislikes }}</strong>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% else %}
+        <strong>No pages currently in category.</strong>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <button type="button" class="btn btn-default"><a href="{% url 'rango:add_page' category.slug %}">Add a Page</a></button>
+        {% endif %}
+        {% else %}
+        The specified category does not exist!
+        {% endif %}
+        <div class="jumbotron p-4" style="margin-top: 10px;">
+            <div class="container">
+                <h4 class="jumbotron-heading">Search with Rango</h4>
+                <form class="form-inline" id="user-form" method="post"
+                action="{% url 'rango:show_category' category.slug %}">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input class="form-control" type="text" size="50" name="query" id="query" value="{{ query }}" />
+                </div>
+
+                <button class="btn btn-primary" type="submit" name="submit">Search</button>
+            </form>
+            </div>
+        </div>
+        <div>
+            {% if result_list %}
+            <h2>Results</h2>
+
+            <div class="list-group">
+                {% for result in result_list %}
+                <div class="list-group-item">
+                    <h3 class="list-group-item-heading">
+                        <a href="{{ result.link }}">{{ result.title|safe|escape }}</a>
+                    </h3>
+                    <p class="list-group-item-text">
+                        {{ result.summary|safe|escape }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+{% endblock %}
